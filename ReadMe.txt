@@ -19,8 +19,6 @@ activate virtual env:
 		windows:  env\Scripts\activate
 		mac or linux:  source env/bin/activate
 
-Create A New directory called LifeSaverServer <------------ IMPORTANT
-
 git clone repository:
 	run git clone https://github.com/TadewosBell/LifeSaverServer
 
