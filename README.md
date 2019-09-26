@@ -31,9 +31,16 @@ py -m venv env
 ```
 Activate the virtual enviroment:
 
+Windows:
 ```sh
 env\Scripts\activate
 ```
+
+Mac/Linux:
+```sh
+source env/bin/activate
+```
+
 Install the requirements:
 
 ```sh
