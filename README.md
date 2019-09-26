@@ -9,7 +9,7 @@ a custom function
 
 ### Clone the repository
 
-```bash
+```sh
 git clone https://github.com/TadewosBell/LifeSaverServer
 ```
 ### Set up the virtual environment
@@ -20,46 +20,46 @@ Documentation: https://packaging.python.org/guides/installing-using-pip-and-virt
 
 Create the enviroment with one of these commands:
 
-```bash
+```sh
 python -m venv env
 ```
-```bash
+```sh
 python3 -m venv env
 ```
-```bash
+```sh
 py -m venv env
 ```
 Activate the virtual enviroment:
 
-```bash
+```sh
 env\Scripts\activate
 ```
 Install the requirements:
 
-```bash
+```sh
 pip install -r requirements.txt
 ```
+## Run the App
 
-Run the app:
-
-```bash
+```sh
 python app.py
 ```
+Then go to:
+..* http://localhost:5000/
+..* http://localhost:5000/JsonObject
 
-Go to:
-	http://localhost:5000/
-	http://localhost:5000/JsonObject
+If you have done everything right you should see:
 
-if you have done everything right, and solved all the errors you got on the way, you should see:
-	Hello World: for the home directory
-
-```javascript
+### http://localhost:5000/
+```	
+Hello World:
+```
+### http://localhost:5000/JsonObject
+```js
 {"functionReturn":{"JsonObject":{"Variable":"nestedVariable"}},"testBool":false,"testNumber":1,"testString":"1"}: for the JsonObject directory
 ```
 
-
-now just think, you can build any type of response you want and activate 
-any function based on a url string that was entered after this let your imagination run free
+Now just think, you can build any type of response you want and activate any function based on a url string that was entered after this, let your imagination run free.
 
 
 
