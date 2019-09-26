@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 
 from users import userFunctions
@@ -22,6 +22,11 @@ def getUser(username):
     response['username'] = username
     return jsonify(response)
 
+
+@app.route('/hello')
+def hello():
+	return render_template('hello.html')
+	
 
 if __name__ == '__main__':
    app.run()
