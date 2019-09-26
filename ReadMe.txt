@@ -22,7 +22,6 @@ activate virtual env:
 Create A New directory called LifeSaverServer <------------ IMPORTANT
 
 git clone repository:
-	run git init in LifeSaverServer directory
 	run git clone https://github.com/TadewosBell/LifeSaverServer
 
 pip install requirements:
