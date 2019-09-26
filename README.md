@@ -1,47 +1,72 @@
 # Life Saver Server
 
-This tutorial shows you how download and install a simple flask app from git, and how to properly run it(Virtual Machines!!!)
+## Installation
 
-it shows you a simple string being returned and also a complex JSON object while using a seperate custom python module with
+This tutorial shows you how download and install a simple flask app from git, and how to properly run it (Virtual Machines!!!)
+
+It shows you a simple string being returned and also a complex JSON object while using a seperate custom python module with
 a custom function
 
+### Clone the repository
 
-Make Project Directory
+```sh
+git clone https://github.com/TadewosBell/LifeSaverServer
+```
+### Set up the virtual environment
 
 Make Virtual ENV in project directory [If you dont have pip install pip(it's a package manager)]
-	documentation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-	command: py -m venv env
-		or python -m venv env
-		or python3 -m venv env
 
-	comment: env is the environment name
+Documentation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
-activate virtual env:
-	command: 
-		windows:  env\Scripts\activate
-		mac or linux:  source env/bin/activate
+Create the enviroment with one of these commands:
 
-git clone repository:
-	run git clone https://github.com/TadewosBell/LifeSaverServer
+```sh
+python -m venv env
+```
+```sh
+python3 -m venv env
+```
+```sh
+py -m venv env
+```
+Activate the virtual enviroment:
 
-pip install requirements:
-	pip install -r requirements.txt
+Windows:
+```sh
+env\Scripts\activate
+```
 
-run 
-	python app.py
+Mac/Linux:
+```sh
+source env/bin/activate
+```
 
-got to:
-	http://localhost:5000/
-	http://localhost:5000/JsonObject
+Install the requirements:
 
-if you have done everything right, and solved all the errors you got on the way, you should see:
-	Hello World: for the home directory
+```sh
+pip install -r requirements.txt
+```
+## Run the App
 
+```sh
+python app.py
+```
+Then go to:
+..* http://localhost:5000/
+..* http://localhost:5000/JsonObject
+
+If you have done everything right you should see:
+
+### http://localhost:5000/
+```	
+Hello World:
+```
+### http://localhost:5000/JsonObject
+```js
 {"functionReturn":{"JsonObject":{"Variable":"nestedVariable"}},"testBool":false,"testNumber":1,"testString":"1"}: for the JsonObject directory
+```
 
-
-now just think, you can build any type of response you want and activate 
-any function based on a url string that was entered after this let your imagination run free
+Now just think, you can build any type of response you want and activate any function based on a url string that was entered after this, let your imagination run free.
 
 
 
