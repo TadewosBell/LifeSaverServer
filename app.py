@@ -16,6 +16,11 @@ def returnJson():
     response['functionReturn'] = userFunctions.simpleFunction()
     return jsonify(response)
 
+@app.route('/GetRequest/<string:username>',methods=['GET'])
+def getUser(username):
+    response = {}
+    response['username'] = username
+    return jsonify(response)
 
 
 if __name__ == '__main__':
