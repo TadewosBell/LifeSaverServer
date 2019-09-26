@@ -1,3 +1,5 @@
+# Life Saver Server
+
 This tutorial shows you how download and install a simple flask app from git, and how to properly run it(Virtual Machines!!!)
 
 it shows you a simple string being returned and also a complex JSON object while using a seperate custom python module with
