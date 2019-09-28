@@ -133,3 +133,13 @@ git add Button.jsx
 ```sh
 git commit -m "Add initial Button code"
 ```
+
+#### Create a draft pull request
+
+Replace button-component with the name of your branch
+
+```sh
+git push origin button-component
+```
+
+Then, go to GitHub, click the compare and pull request button, and create a draft pull request.
