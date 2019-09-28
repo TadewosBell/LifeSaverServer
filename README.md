@@ -163,3 +163,10 @@ And you're done a feature!
 * **Never** commit directly to master
 * **Never** merge your branch to master locally, always create a pull request instead
 * **Do** periodically merge from master into your branch so that you can incorporate important changes from other team members.
+
+## Suggested Visual Studio Code Extensions
+
+* Python (Microsoft)
+* GitHub Pull Requests (GitHub)
+* GitLens (Eric Amodio)
+* markdownlint (David Anson)
