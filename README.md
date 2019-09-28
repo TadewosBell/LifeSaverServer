@@ -167,7 +167,7 @@ And you're done a feature!
 ## Suggested Visual Studio Code Extensions
 
 * Python (Microsoft)
-* GitHub Pull Requests (GitHub) <- Use this for Pull Requests
+* GitHub Pull Requests (GitHub) <- Use this for Pull Requests, more details to follow
 * GitLens (Eric Amodio)
 * markdownlint (David Anson)
 
