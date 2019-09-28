@@ -170,3 +170,5 @@ And you're done a feature!
 * GitHub Pull Requests (GitHub)
 * GitLens (Eric Amodio)
 * markdownlint (David Anson)
+
+Note: Make sure to sign in to the GitHub extension, and make sure the Python at the bottom left is set to your virtual environment.
