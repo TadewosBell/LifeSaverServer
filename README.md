@@ -154,6 +154,12 @@ When the branch is done, go to GitHub, and click "Ready for review".
 
 Confirm that all of the changes are ok with the other team members.
 
-Click "Merge pull request"
+Select "Squash and Merge" from the "Merge pull request" dropdown and click it.
 
 And you're done a feature!
+
+#### Review
+
+* **Never** commit directly to master
+* **Never** merge your branch to master locally, always create a pull request instead
+* **Do** periodically merge from master into your branch so that you can incorporate important changes from other team members.
