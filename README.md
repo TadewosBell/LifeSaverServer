@@ -142,4 +142,18 @@ Replace button-component with the name of your branch
 git push origin button-component
 ```
 
-Then, go to GitHub, click the compare and pull request button, and create a draft pull request.
+Then, go to GitHub, click the compare and pull request button, click the dropdown on "Create Pull Request", and create a draft pull request.
+
+#### Keep Working
+
+Then, keep committing and pushing your branch to the origin. New commits in the branch will automatically be added to the pull request.
+
+#### Merge the feature branch
+
+When the branch is done, go to GitHub, and click "Ready for review".
+
+Confirm that all of the changes are ok with the other team members.
+
+Click "Merge pull request"
+
+And you're done a feature!
