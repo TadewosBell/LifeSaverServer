@@ -1,5 +1,10 @@
 from flask import Flask, jsonify, render_template
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
+
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 from users import userFunctions
 
@@ -7,7 +12,7 @@ from users import userFunctions
 def hello_world():
     return 'Hello World'
 
-@app.route('/JsonObject')
+@app.route('/JsonObject', methods=['POST'])
 def returnJson():
     response = {}
     response['testString'] = '1'
@@ -19,7 +24,7 @@ def returnJson():
 @app.route('/GetRequest/<string:username>',methods=['GET'])
 def getUser(username):
     response = {}
-    response['username'] = username
+    response['userName'] = username
     return jsonify(response)
 
 #my change
