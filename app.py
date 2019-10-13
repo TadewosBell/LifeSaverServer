@@ -27,8 +27,6 @@ def getUser(username):
     response['userName'] = username
     return jsonify(response)
 
-#my change
-
 @app.route('/hello')
 def hello():
 	return render_template('hello.html')
