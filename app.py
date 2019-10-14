@@ -1,36 +1,26 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
+from flask_pymongo import pymongo,PyMongo
 
 app = Flask(__name__)
+
+app.config.from_object("config")
+mongo = PyMongo(app)
 CORS(app)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 from users import userFunctions
 
-@app.route('/')
-def hello_world():
-    return 'Hello World'
-
-@app.route('/JsonObject', methods=['POST'])
-def returnJson():
+@app.route('/GetRequest/<string:user_name>',methods=['GET'])
+def getUser(user_name):
     response = {}
-    response['testString'] = '1'
-    response['testNumber'] = 1
-    response['testBool'] = False
-    response['functionReturn'] = userFunctions.simpleFunction()
+    user = userFunctions.User(user_name,'Tadewos','Bellete')
+    user.print()
+    user.save()
     return jsonify(response)
 
-@app.route('/GetRequest/<string:username>',methods=['GET'])
-def getUser(username):
-    response = {}
-    response['userName'] = username
-    return jsonify(response)
-
-@app.route('/hello')
-def hello():
-	return render_template('hello.html')
 	
 
 if __name__ == '__main__':
-   app.run()
+   app.run(debug=True)
