@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from flask_pymongo import pymongo,PyMongo
 
@@ -20,7 +20,13 @@ def getUser(user_name):
     user.save()
     return jsonify(response)
 
-	
+@app.route('/SignUp', methods=['POST'])
+def SignUp():
+    content = request.get_json()
+    print(content)
+    user = userFunctions.User(content['email'], content['firstName'],content['lastName'],content['password'])
+    user.save()
+    return jsonify(content)
 
 if __name__ == '__main__':
    app.run(debug=True)
