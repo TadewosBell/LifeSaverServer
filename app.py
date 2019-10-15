@@ -17,7 +17,7 @@ def getUser(user_name):
     response = {}
     user = userFunctions.User(user_name,'Tadewos','Bellete')
     user.print()
-    user.save()
+    user.register()
     return jsonify(response)
 
 @app.route('/SignUp', methods=['POST'])
@@ -25,7 +25,7 @@ def SignUp():
     content = request.get_json()
     print(content)
     user = userFunctions.User(content['email'], content['firstName'],content['lastName'],content['password'])
-    user.save()
+    user.register()
     return jsonify(content)
 
 if __name__ == '__main__':
