@@ -41,7 +41,7 @@ def get_missions():
 
 @app.route('/Missions/<string:id>', methods=['GET'])
 def get_mission(id):
-    return Mission.objects(id=id).first().to_json()
+    return Mission.objects(id=id).get().to_json()
 
 @app.route('/Missions', methods=['POST'])
 def post_mission():
@@ -52,7 +52,17 @@ def post_mission():
 
 @app.route('/Missions/<string:id>', methods=['DELETE'])
 def delete_mission(id):
-    Mission.objects(id=id).first().delete()
+    Mission.objects(id=id).get().delete()
+    return '', 204
+
+@app.route('/Missions/<string:id>/Calls/<string:callId>', methods=['POST'])
+def post_call_to_mission(id, callId):
+    mission = Mission.objects(id=id).get()
+    call = Call.objects(id=callId).get()
+    if not mission or not call:
+        return '', 404
+    mission.calls.append(call)
+    mission.save()
     return '', 204
 
 @app.route('/Calls', methods=['GET'])
@@ -73,7 +83,7 @@ def post_call():
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
 def delete_call(id):
-    Call.objects(id=id).first().delete()
+    Call.objects(id=id).get().delete()
     return '', 204
 
 if __name__ == '__main__':
