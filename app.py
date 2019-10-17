@@ -4,6 +4,7 @@ from flask_pymongo import pymongo,PyMongo
 from mongoengine import connect
 from config import *
 from models import *
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -63,6 +64,7 @@ def get_call(id):
 def post_call():
     content = request.get_json()
     created = Call().from_json(content)
+    created.timeReceived = datetime.now()
     created.save()
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
