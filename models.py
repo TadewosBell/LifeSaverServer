@@ -28,7 +28,7 @@ class Call(Document):
     category = StringField()
     priority = StringField()
     timeReceived = DateTimeField()
-    location = EmbeddedDocument(Location)
+    location = EmbeddedDocumentField(Location)
     callerName = StringField()
     callerPhoneNumber = StringField()
     region = ReferenceField(Region)

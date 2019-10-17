@@ -47,15 +47,27 @@ def post_mission():
     created = Mission().from_json(content)
     created.save()
 
+@app.route('/Missions/<string:id>', methods=['DELETE'])
+def delete_mission(id):
+    return True
+
+@app.route('/Calls', methods=['GET'])
+def get_calls():
+    return Call.objects().to_json()
+
+@app.route('/Calls/<string:id>', methods=['GET'])
+def get_call(id):
+    return Call.objects(id=id).to_json()
+
 @app.route('/Calls', methods=['POST'])
 def post_call():
     content = request.get_json()
     created = Call().from_json(content)
     created.save()
 
-@app.route('/Missions/<string:id>', methods=['DELETE'])
-def delete_mission(id):
-    return True
+@app.route('/Calls/<string:id>', methods=['DELETE'])
+def delete_call(id):
+    Call.objects(id=id).first().delete()
 
 if __name__ == '__main__':
    app.run(debug=True)
