@@ -48,12 +48,12 @@ def post_mission():
     content = request.get_json()
     created = Mission().from_json(content)
     created.save()
-    return 201
+    return '', 201
 
 @app.route('/Missions/<string:id>', methods=['DELETE'])
 def delete_mission(id):
     Mission.objects(id=id).first().delete()
-    return 204
+    return '', 204
 
 @app.route('/Calls', methods=['GET'])
 def get_calls():
@@ -69,12 +69,12 @@ def post_call():
     created = Call().from_json(content)
     created.timeReceived = datetime.now()
     created.save()
-    return 201
+    return '', 201
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
 def delete_call(id):
     Call.objects(id=id).first().delete()
-    return 204
+    return '', 204
 
 if __name__ == '__main__':
    app.run(debug=True)
