@@ -38,7 +38,20 @@ class Call(Document):
 class Mission(Document):
     id = ObjectIdField()
     title = StringField()
-    region = ReferenceField(Region)
+    region = ReferenceField(Region) # mission team's covering area
     calls = ListField(ReferenceField(Call))
     created_by = ReferenceField(User)
     last_modified_by = ReferenceField(User)
+    
+class Equipment(Document):
+    id = ObjectIdField()
+    title = StringField()
+    description = StringField()
+    region = ReferenceField(Region)
+
+class Team(Document):
+    id = ObjectIdField()
+    title = StringField()
+    mission = ReferenceField(Mission)
+    team_in = ReferenceField(User)
+    equipment = ListField(ReferenceField(Equipment))
