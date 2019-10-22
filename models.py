@@ -43,15 +43,15 @@ class Mission(Document):
     created_by = ReferenceField(User)
     last_modified_by = ReferenceField(User)
     
-#class Equipment(Document):
-    #id = objectIdField()
-    #title = StringField()
-    #description = StringField()
-    #region = ReferenceField(Region)
+class Equipment(Document):
+    id = ObjectIdField()
+    title = StringField()
+    description = StringField()
+    region = ReferenceField(Region)
 
-#class Team(Document):
-    #id = ObjectIdFiend()
-    #title = StringField()
-    #mission = ReferenceField(Mission)
-    #team_in = ReferenceField(User)
-    #equipment = ListField(ReferenceField(Equipment))
+class Team(Document):
+    id = ObjectIdField()
+    title = StringField()
+    mission = ReferenceField(Mission)
+    team_in = ReferenceField(User)
+    equipment = ListField(ReferenceField(Equipment))
