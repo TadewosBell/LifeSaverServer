@@ -17,7 +17,7 @@ connect(db=MONGO_DBNAME, host=MONGO_URI)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-from users import userFunctions
+#from users import userFunctions
 
 @app.route('/GetRequest/<string:user_name>',methods=['GET'])
 def getUser(user_name):
@@ -29,11 +29,17 @@ def getUser(user_name):
 
 @app.route('/SignUp', methods=['POST'])
 def SignUp():
+    response = {}
     content = request.get_json()
     print(content)
-    user = userFunctions.User(content['email'], content['firstName'],content['lastName'],content['password'])
-    user.register()
-    return jsonify(content)
+    foundUsers = User.objects(email=content['email']).count()
+    if foundUsers == 0:
+        user = User(content['email'], content['firstName'],content['lastName'],content['password'])
+        user.save()
+        response['registered'] = True
+    else:
+        response['error'] = 'user exists'
+    return jsonify(response)
 
 @app.route('/Missions', methods=['GET'])
 def get_missions():
