@@ -86,5 +86,23 @@ def delete_call(id):
     Call.objects(id=id).get().delete()
     return '', 204
 
+@app.route('/Categories', methods=['GET'])
+def get_categories():
+    return Category.objects().to_json()
+
+@app.route('/Categories', methods=['POST'])
+def post_category():
+    content = request.get_json()
+    created = Category().from_json(content)
+    if Category.objects(name__exists=created.name):
+        return '', 400 #already exists
+    created.save()
+    return '', 201
+
+@app.route('/Categories/<string:name>', methods=['DELETE'])
+def delete_category(name):
+    Category.objects(name=name).get().delete()
+    return '', 204
+
 if __name__ == '__main__':
    app.run(debug=True)
