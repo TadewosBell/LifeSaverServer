@@ -42,3 +42,6 @@ class Mission(Document):
     calls = ListField(ReferenceField(Call))
     created_by = ReferenceField(User)
     last_modified_by = ReferenceField(User)
+
+class Category(Document):
+    name = StringField(required=True)
