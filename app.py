@@ -84,13 +84,11 @@ def post_call():
 @app.route('/Calls/<string:id>', methods=['PATCH'])
 def patch_call(id):
     attrs = [
-        'id',
         'title',
         'description',
         'category',
         'priority',
         'timeReceived',
-        'location',
         'callerName',
         'callerPhoneNumber',
         'region'
@@ -100,6 +98,8 @@ def patch_call(id):
     for attr in attrs:
         if attr in content:
             setattr(call, attr, content[attr])
+    if 'location' in attrs:
+        call.location = Location().from_json(content['location'])
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
