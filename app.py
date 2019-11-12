@@ -81,6 +81,16 @@ def post_call():
     created.save()
     return '', 201
 
+@app.route('/Calls/<string:id>', methods=['PUT'])
+def put_call(id):
+    content = request.get_json()
+    call = Call.objects.with_id(id)
+    if call == None:
+        return '', 404
+    call.from_json(content)
+    call.save()
+    return '', 201
+
 @app.route('/Calls/<string:id>', methods=['PATCH'])
 def patch_call(id):
     attrs = [
@@ -102,6 +112,7 @@ def patch_call(id):
             setattr(call, attr, content[attr])
     if 'location' in content:
         call.location = Location().from_json(content['location'])
+    call.save()
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
