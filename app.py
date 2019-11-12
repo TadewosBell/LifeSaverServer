@@ -85,12 +85,11 @@ def post_call():
 @app.route('/Calls/<string:id>', methods=['PUT'])
 def put_call(id):
     content = request.get_json()
-    call = Call.objects.with_id(id)
-    if call == None:
+    if Call.objects.with_id(id) == None:
         return '', 404
-    call.from_json(content)
+    call = Call(**content)
     call.id = ObjectId(id)
-    call.save()
+    call.save(force_insert=True)
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['PATCH'])
