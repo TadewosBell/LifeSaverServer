@@ -22,7 +22,7 @@ class Location(EmbeddedDocument):
     details = StringField()
 
 class Call(Document):
-    id = ObjectIdField()
+    id = SequenceField()
     title = StringField()
     description = StringField()
     category = StringField()
