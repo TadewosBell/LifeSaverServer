@@ -81,6 +81,27 @@ def post_call():
     created.save()
     return '', 201
 
+@app.route('/Calls/<string:id>', methods=['PATCH'])
+def patch_call():
+    attrs = [
+        'id',
+        'title',
+        'description',
+        'category',
+        'priority',
+        'timeReceived',
+        'location',
+        'callerName',
+        'callerPhoneNumber',
+        'region'
+    ]
+    content = request.get_json()
+    call = Call.objects(id=id).get()
+    for attr in attrs:
+        if attr in content:
+            setattr(call, attr, content[attr])
+    return '', 201
+
 @app.route('/Calls/<string:id>', methods=['DELETE'])
 def delete_call(id):
     Call.objects(id=id).get().delete()
