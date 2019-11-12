@@ -42,7 +42,9 @@ def get_missions():
 
 @app.route('/Missions/<string:id>', methods=['GET'])
 def get_mission(id):
-    return Mission.objects.with_id(id).to_json()
+    mission = Mission.objects.with_id(id)
+    mission.get_calls()
+    return mission.to_json()
 
 @app.route('/Missions', methods=['POST'])
 def post_mission():
@@ -56,6 +58,14 @@ def delete_mission(id):
     Mission.objects.with_id(id).delete()
     return '', 204
 
+@app.route('/Missions/Calls/<string:id>', methods=['GET'])
+def get_calls_for_mission(id):
+    mission = Mission.objects.with_id(id)
+    if not mission:
+        return '', 404
+    else:
+        return Call.objects(mission=mission).to_json()
+
 @app.route('/Missions/Calls', methods=['POST'])
 def post_call_to_mission():
     id = request.args.get('mission')
@@ -64,10 +74,9 @@ def post_call_to_mission():
     call = Call.objects.with_id(callId)
     if not mission or not call:
         return '', 404
-    mission.calls.append(call)
     call.mission = mission
-    mission.save()
-    return '', 204
+    call.save()
+    return '', 201
 
 @app.route('/Missions/Calls', methods=['DELETE'])
 def delete_call_from_mission():
@@ -77,7 +86,6 @@ def delete_call_from_mission():
     call = Call.objects.with_id(callId)
     if not mission or not call:
         return '', 404
-    mission.calls.remove(call)
     call.mission = None
     return '', 204
 

@@ -20,6 +20,15 @@ class Location(EmbeddedDocument):
     coordinates = PointField()
     details = StringField()
 
+class Mission(Document):
+    title = StringField()
+    region = ReferenceField(Region)
+    created_by = ReferenceField(User)
+    last_modified_by = ReferenceField(User)
+
+    def get_calls(self):
+        return Call.objects(mission=self)
+
 class Call(Document):
     title = StringField()
     description = StringField()
@@ -33,13 +42,6 @@ class Call(Document):
     region = ReferenceField(Region)
     createdBy = ReferenceField(User)
     lastModifiedBy = ReferenceField(User)
-
-class Mission(Document):
-    title = StringField()
-    region = ReferenceField(Region)
-    calls = ListField(ReferenceField(Call))
-    created_by = ReferenceField(User)
-    last_modified_by = ReferenceField(User)
 
 class Category(Document):
     name = StringField(required=True)
