@@ -2,12 +2,14 @@ from mongoengine import Document, EmbeddedDocument
 from mongoengine.fields import *
 
 class Region(Document):
-    id = ObjectIdField()
     title = StringField()
     description = StringField()
 
 class User(Document):
     email = StringField(required=True)
+    firstName = StringField(required=True)
+    lastName = StringField(required=True)
+    password = StringField(required=True)
     isCallSpecialist = BooleanField()
     isOperationsChief = BooleanField()
     isMissionManagement = BooleanField()
@@ -21,11 +23,21 @@ class Location(EmbeddedDocument):
     coordinates = PointField()
     details = StringField()
 
+class Mission(Document):
+    title = StringField()
+    region = ReferenceField(Region)
+    created_by = ReferenceField(User)
+    last_modified_by = ReferenceField(User)
+
+    def get_calls(self):
+        return Call.objects(mission=self)
+
 class Call(Document):
-    id = SequenceField()
+    id = SequenceField(primary_key=True)
     title = StringField()
     description = StringField()
     category = StringField()
+    mission = ReferenceField(Mission)
     priority = StringField()
     timeReceived = DateTimeField()
     location = EmbeddedDocumentField(Location)
@@ -34,14 +46,6 @@ class Call(Document):
     region = ReferenceField(Region)
     createdBy = ReferenceField(User)
     lastModifiedBy = ReferenceField(User)
-
-class Mission(Document):
-    id = ObjectIdField()
-    title = StringField()
-    region = ReferenceField(Region)
-    calls = ListField(ReferenceField(Call))
-    created_by = ReferenceField(User)
-    last_modified_by = ReferenceField(User)
 
 class Category(Document):
     name = StringField(required=True)

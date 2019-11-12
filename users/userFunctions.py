@@ -3,6 +3,17 @@ import pymongo
 from app import mongo
 import hashlib
 
+from flask import jsonify
+from flask_login import LoginManager 
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended import (create_access_token)
+from app import app
+
+userDb = mongo.db.userInfo
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
 userDb = mongo.db.userInfo
 
 class User:
