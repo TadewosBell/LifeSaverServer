@@ -5,6 +5,10 @@ from mongoengine import connect
 from config import *
 from models import *
 from datetime import datetime
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 
 
 app = Flask(__name__)
@@ -16,6 +20,11 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 connect(db=MONGO_DBNAME, host=MONGO_URI)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+# Setup the Flask-JWT-Extended extension
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+jwt = JWTManager(app)
+
 
 #from users import userFunctions
 
@@ -39,6 +48,20 @@ def SignUp():
         response['registered'] = True
     else:
         response['error'] = 'user exists'
+    return jsonify(response)
+
+@app.route('/SignIn', methods=['POST'])
+def SignIn():
+    response = {}
+    content = request.get_json()
+    foundUsers = User.objects(email=content['email'])
+    if foundUsers.count() == 0:
+        response['error'] = 'User with specified email does not exist.'
+    elif foundUsers.get().password != content['password']:
+        response['error'] = 'Incorrect Password.'
+    else:
+        response['access_token'] = create_access_token(identity=content['email'])
+        response['registered'] = True
     return jsonify(response)
 
 @app.route('/Missions', methods=['GET'])
