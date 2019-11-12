@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from flask_pymongo import pymongo,PyMongo
 from mongoengine import connect
+from bson.objectid import ObjectId
 from config import *
 from models import *
 from datetime import datetime
@@ -81,6 +82,16 @@ def post_call():
     created.save()
     return '', 201
 
+@app.route('/Calls/<string:id>', methods=['PUT'])
+def put_call(id):
+    content = request.get_json()
+    if Call.objects.with_id(id) == None:
+        return '', 404
+    call = Call(**content)
+    call.id = ObjectId(id)
+    call.save()
+    return '', 201
+
 @app.route('/Calls/<string:id>', methods=['PATCH'])
 def patch_call(id):
     attrs = [
@@ -94,7 +105,7 @@ def patch_call(id):
         'region'
     ]
     content = request.get_json()
-    call = Call.with_id(id)
+    call = Call.objects.with_id(id)
     if call == None:
         return '', 404
     for attr in attrs:
@@ -102,6 +113,7 @@ def patch_call(id):
             setattr(call, attr, content[attr])
     if 'location' in content:
         call.location = Location().from_json(content['location'])
+    call.save()
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
