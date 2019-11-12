@@ -42,7 +42,7 @@ def get_missions():
 
 @app.route('/Missions/<string:id>', methods=['GET'])
 def get_mission(id):
-    return Mission.objects(id=id).get().to_json()
+    return Mission.objects.with_id(id).to_json()
 
 @app.route('/Missions', methods=['POST'])
 def post_mission():
@@ -53,17 +53,32 @@ def post_mission():
 
 @app.route('/Missions/<string:id>', methods=['DELETE'])
 def delete_mission(id):
-    Mission.objects(id=id).get().delete()
+    Mission.objects.with_id(id).delete()
     return '', 204
 
-@app.route('/Missions/<string:id>/Calls/<string:callId>', methods=['POST'])
-def post_call_to_mission(id, callId):
-    mission = Mission.objects(id=id).get()
-    call = Call.objects(id=callId).get()
+@app.route('/Missions/Calls', methods=['POST'])
+def post_call_to_mission():
+    id = request.args.get('mission')
+    callId = request.args.get('call')
+    mission = Mission.objects.with_id(id)
+    call = Call.objects.with_id(callId)
     if not mission or not call:
         return '', 404
     mission.calls.append(call)
+    call.mission = mission
     mission.save()
+    return '', 204
+
+@app.route('/Missions/Calls', methods=['DELETE'])
+def delete_call_from_mission():
+    id = request.args.get('mission')
+    callId = request.args.get('call')
+    mission = Mission.objects.with_id(id)
+    call = Call.objects.with_id(callId)
+    if not mission or not call:
+        return '', 404
+    mission.calls.remove(call)
+    call.mission = None
     return '', 204
 
 @app.route('/Calls', methods=['GET'])
@@ -72,7 +87,7 @@ def get_calls():
 
 @app.route('/Calls/<string:id>', methods=['GET'])
 def get_call(id):
-    return Call.objects(id=id).to_json()
+    return Call.objects.with_id(id).to_json()
 
 @app.route('/Calls', methods=['POST'])
 def post_call():
@@ -106,7 +121,7 @@ def patch_call(id):
     ]
     content = request.get_json()
     call = Call.objects.with_id(id)
-    if call == None:
+    if not call:
         return '', 404
     for attr in attrs:
         if attr in content:
@@ -118,7 +133,7 @@ def patch_call(id):
 
 @app.route('/Calls/<string:id>', methods=['DELETE'])
 def delete_call(id):
-    Call.objects(id=id).get().delete()
+    Call.objects.with_id(id).delete()
     return '', 204
 
 @app.route('/Categories', methods=['GET'])

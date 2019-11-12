@@ -24,6 +24,7 @@ class Call(Document):
     title = StringField()
     description = StringField()
     category = StringField()
+    mission = ReferenceField(Mission)
     priority = StringField()
     timeReceived = DateTimeField()
     location = EmbeddedDocumentField(Location)
