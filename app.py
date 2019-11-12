@@ -82,7 +82,7 @@ def post_call():
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['PATCH'])
-def patch_call():
+def patch_call(id):
     attrs = [
         'id',
         'title',
