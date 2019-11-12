@@ -33,6 +33,7 @@ class Mission(Document):
         return Call.objects(mission=self)
 
 class Call(Document):
+    id = SequenceField(primary_key=True)
     title = StringField()
     description = StringField()
     category = StringField()
