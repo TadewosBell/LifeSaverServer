@@ -94,7 +94,7 @@ def patch_call(id):
         'region'
     ]
     content = request.get_json()
-    call = Call.with_id(id)
+    call = Call.objects.with_id(id)
     if call == None:
         return '', 404
     for attr in attrs:
