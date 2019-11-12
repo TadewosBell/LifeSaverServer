@@ -89,7 +89,7 @@ def put_call(id):
         return '', 404
     call = Call(**content)
     call.id = ObjectId(id)
-    call.save(force_insert=True)
+    call.save()
     return '', 201
 
 @app.route('/Calls/<string:id>', methods=['PATCH'])
