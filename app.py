@@ -100,7 +100,7 @@ def patch_call(id):
     for attr in attrs:
         if attr in content:
             setattr(call, attr, content[attr])
-    if 'location' in attrs:
+    if 'location' in content:
         call.location = Location().from_json(content['location'])
     return '', 201
 
