@@ -2,7 +2,6 @@ from mongoengine import Document, EmbeddedDocument
 from mongoengine.fields import *
 
 class Region(Document):
-    id = ObjectIdField()
     title = StringField()
     description = StringField()
 
@@ -22,7 +21,6 @@ class Location(EmbeddedDocument):
     details = StringField()
 
 class Call(Document):
-    id = ObjectIdField()
     title = StringField()
     description = StringField()
     category = StringField()
@@ -36,7 +34,6 @@ class Call(Document):
     lastModifiedBy = ReferenceField(User)
 
 class Mission(Document):
-    id = ObjectIdField()
     title = StringField()
     region = ReferenceField(Region)
     calls = ListField(ReferenceField(Call))
