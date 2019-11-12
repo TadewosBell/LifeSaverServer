@@ -7,6 +7,9 @@ class Region(Document):
 
 class User(Document):
     email = StringField(required=True)
+    firstName = StringField(required=True)
+    lastName = StringField(required=True)
+    password = StringField(required=True)
     isCallSpecialist = BooleanField()
     isOperationsChief = BooleanField()
     isMissionManagement = BooleanField()
