@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from flask_pymongo import pymongo,PyMongo
 from mongoengine import connect
+from bson.objectid import ObjectId
 from config import *
 from models import *
 from datetime import datetime
@@ -88,6 +89,7 @@ def put_call(id):
     if call == None:
         return '', 404
     call.from_json(content)
+    call.id = ObjectId(id)
     call.save()
     return '', 201
 
