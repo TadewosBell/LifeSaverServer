@@ -45,6 +45,7 @@ def SignUp():
     foundUsers = User.objects(email=content['email']).count()
     if foundUsers == 0:
         user = User(content['email'], content['firstName'],content['lastName'],content['password'])
+        user.setRole(content['role'])
         user.save()
         response['registered'] = True
     else:

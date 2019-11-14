@@ -17,6 +17,18 @@ class User(Document):
     firstResponderRole = StringField()
     isVolunteer = BooleanField()
     details = StringField()
+    
+    def setRole(self, role):
+        if role == 1:
+            self.isFirstFesponder = True
+        if role == 2:
+            self.isVolunteer = True
+        if role == 3:
+            self.isMissionManagement = True
+        if role == 4:
+            self.isOperationsChief = True
+        if role == 5:
+            self.isCallSpecialist = True
 
 class Location(EmbeddedDocument):
     address = StringField()
