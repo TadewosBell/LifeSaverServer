@@ -133,7 +133,7 @@ def post_call():
     created = Call().from_json(content)
     created.timeReceived = datetime.now()
     created.save()
-    return '', 201
+    return str(created.id), 201
 
 @app.route('/Calls/<string:id>', methods=['PUT'])
 def put_call(id):
