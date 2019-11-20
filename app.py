@@ -136,13 +136,13 @@ def post_call():
     created.save(force_insert= True)
     return str(created.id), 201
 
-@app.route('/Calls/<string:id>', methods=['PUT'])
+@app.route('/Calls/<int:id>', methods=['PUT'])
 def put_call(id):
     content = request.get_json()
     if Call.objects.with_id(id) == None:
         return '', 404
     call = Call(**content)
-    call.id = ObjectId(id)
+    call.id = id
     call.save()
     return '', 201
 
