@@ -193,5 +193,18 @@ def delete_category(name):
     Category.objects(name=name).get().delete()
     return '', 204
 
+@app.route('/User/<string:email>', methods=['GET'])
+def get_user(email):
+    return User.objects(email=email).get().to_json()
+
+@app.route('/User/<string:email>', methods=['EDIT'])
+def edit_user(email):
+    content = request.get_json()
+    ChangedUser = User().from_json(content)
+    EditUser = User.objects(email=content['email']) 
+    EditUser = ChangedUser(content['email'], content['firstName'],content['lastName'],content['password'])
+    EditUser.save()
+    return '', 201
+
 if __name__ == '__main__':
    app.run(debug=True)
