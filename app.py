@@ -195,21 +195,16 @@ def delete_category(name):
 
 @app.route('/User/<string:email>', methods=['GET'])
 def get_user(email):
-    return User.objects(email=contect['email']).to_json()
+    return User.objects(email=email).get().to_json()
 
-@app.route('/User/<string:id>', methods=['EDIT'])
+@app.route('/User/<string:email>', methods=['EDIT'])
 def edit_user(email):
-    response = {}
     content = request.get_json()
-    EditUser = User.objects(email=content['email'])
-    if EditUser != User().from_json(content)
-        ChangedUser = User().from_json(content)
-        EditUser = ChangedUser(content['email'], content['firstName'],content['lastName'],content['password'])
-        EditUser.save()
-        response['edited'] = True
-    else:
-        response['error'] = 'No Change'
-    return jsonify(response)
+    ChangedUser = User().from_json(content)
+    EditUser = User.objects(email=content['email']) 
+    EditUser = ChangedUser(content['email'], content['firstName'],content['lastName'],content['password'])
+    EditUser.save()
+    return '', 201
 
 if __name__ == '__main__':
    app.run(debug=True)
