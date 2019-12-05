@@ -6,7 +6,7 @@ class Region(Document):
     description = StringField()
 
 class User(Document):
-    email = StringField(required=True)
+    email = StringField(required=True,primary_key=True)
     firstName = StringField(required=True)
     lastName = StringField(required=True)
     password = StringField(required=True)
@@ -29,6 +29,7 @@ class User(Document):
             self.isOperationsChief = True
         if role == 5:
             self.isCallSpecialist = True
+
 
 class Location(EmbeddedDocument):
     address = StringField()

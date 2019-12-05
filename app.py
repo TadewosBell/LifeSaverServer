@@ -56,12 +56,14 @@ def SignUp():
 def SignIn():
     response = {}
     content = request.get_json()
-    foundUsers = User.objects(email=content['email'])
-    if foundUsers.count() == 0:
+    foundUser= User.objects.with_id(content['email'])
+    if not foundUser:
         response['error'] = 'User with specified email does not exist.'
-    elif foundUsers.get().password != content['password']:
+    elif foundUser.password != content['password']:
         response['error'] = 'Incorrect Password.'
     else:
+        foundUser.password = None
+        response['user'] = foundUser.to_json()
         response['access_token'] = create_access_token(identity=content['email'])
         response['registered'] = True
     return jsonify(response)
