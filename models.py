@@ -13,14 +13,14 @@ class User(Document):
     isCallSpecialist = BooleanField()
     isOperationsChief = BooleanField()
     isMissionManagement = BooleanField()
-    isFirstFesponder = BooleanField()
+    isFirstResponder = BooleanField()
     firstResponderRole = StringField()
     isVolunteer = BooleanField()
     details = StringField()
     
     def setRole(self, role):
         if role == 1:
-            self.isFirstFesponder = True
+            self.isFirstResponder = True
         if role == 2:
             self.isVolunteer = True
         if role == 3:
