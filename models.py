@@ -6,21 +6,21 @@ class Region(Document):
     description = StringField()
 
 class User(Document):
-    email = StringField(required=True)
+    email = StringField(required=True,primary_key=True)
     firstName = StringField(required=True)
     lastName = StringField(required=True)
     password = StringField(required=True)
     isCallSpecialist = BooleanField()
     isOperationsChief = BooleanField()
     isMissionManagement = BooleanField()
-    isFirstFesponder = BooleanField()
+    isFirstResponder = BooleanField()
     firstResponderRole = StringField()
     isVolunteer = BooleanField()
     details = StringField()
     
     def setRole(self, role):
         if role == 1:
-            self.isFirstFesponder = True
+            self.isFirstResponder = True
         if role == 2:
             self.isVolunteer = True
         if role == 3:
@@ -29,6 +29,7 @@ class User(Document):
             self.isOperationsChief = True
         if role == 5:
             self.isCallSpecialist = True
+
 
 class Location(EmbeddedDocument):
     address = StringField()
