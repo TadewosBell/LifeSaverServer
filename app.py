@@ -117,6 +117,7 @@ def delete_call_from_mission():
     if not mission or not call:
         return '', 404
     call.mission = None
+    call.save()
     return '', 204
 
 @app.route('/Calls', methods=['GET'])
