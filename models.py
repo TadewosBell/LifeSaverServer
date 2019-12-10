@@ -59,6 +59,7 @@ class Call(Document):
     createdBy = ReferenceField(User)
     lastModifiedBy = ReferenceField(User)
     resolved = BooleanField()
+    active = BooleanField()
 
 class Category(Document):
     name = StringField(required=True)
