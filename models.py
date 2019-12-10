@@ -58,6 +58,7 @@ class Call(Document):
     region = ReferenceField(Region)
     createdBy = ReferenceField(User)
     lastModifiedBy = ReferenceField(User)
+    resolved = BooleanField()
 
 class Category(Document):
     name = StringField(required=True)
