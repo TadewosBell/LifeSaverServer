@@ -5,6 +5,19 @@ class Region(Document):
     title = StringField()
     description = StringField()
 
+
+class Location(EmbeddedDocument):
+    address = StringField()
+    coordinates = PointField()
+    details = StringField()
+
+class Mission(Document):
+    title = StringField()
+    region = ReferenceField(Region)
+
+    def get_calls(self):
+        return Call.objects(mission=self)
+
 class User(Document):
     email = StringField(required=True,primary_key=True)
     firstName = StringField(required=True)
@@ -17,6 +30,7 @@ class User(Document):
     firstResponderRole = StringField()
     isVolunteer = BooleanField()
     details = StringField()
+    mission = ReferenceField(Mission)
     
     def setRole(self, role):
         if role == 1:
@@ -29,21 +43,6 @@ class User(Document):
             self.isOperationsChief = True
         if role == 5:
             self.isCallSpecialist = True
-
-
-class Location(EmbeddedDocument):
-    address = StringField()
-    coordinates = PointField()
-    details = StringField()
-
-class Mission(Document):
-    title = StringField()
-    region = ReferenceField(Region)
-    created_by = ReferenceField(User)
-    last_modified_by = ReferenceField(User)
-
-    def get_calls(self):
-        return Call.objects(mission=self)
 
 class Call(Document):
     id = SequenceField(primary_key=True)
@@ -60,6 +59,7 @@ class Call(Document):
     createdBy = ReferenceField(User)
     lastModifiedBy = ReferenceField(User)
     resolved = BooleanField()
+    active = BooleanField()
 
 class Category(Document):
     name = StringField(required=True)
