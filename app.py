@@ -223,7 +223,7 @@ def post_category():
     created.save()
     return '', 201
 
-@app.route('/User/Call/<string:email>', methods=['GET'])
+@app.route('/Users/Calls/<string:email>', methods=['GET'])
 def get_call_for_user(email):
     user = User.objects.with_id(email)
     result = Call.objects.get(mission=user.mission, active=True)
