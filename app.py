@@ -122,6 +122,38 @@ def delete_call_from_mission():
     call.save()
     return '', 204
 
+@app.route('/Missions/Users/<string:id>', methods=['GET'])
+def get_users_for_mission(id):
+    mission = Mission.objects.with_id(id)
+    if not mission:
+        return '', 404
+    else:
+        return User.objects(mission=mission).to_json()
+
+@app.route('/Missions/Users', methods=['POST'])
+def post_user_to_mission():
+    id = request.args.get('mission')
+    userEmail = request.args.get('user')
+    mission = Mission.objects.with_id(id)
+    user = User.objects.with_id(userEmail)
+    if not mission or not user:
+        return '', 404
+    user.mission = mission
+    user.save()
+    return '', 201
+
+@app.route('/Missions/Users', methods=['DELETE'])
+def delete_user_from_mission():
+    id = request.args.get('mission')
+    userEmail = request.args.get('user')
+    mission = Mission.objects.with_id(id)
+    user = User.objects.with_id(userEmail)
+    if not mission or not user:
+        return '', 404
+    user.mission = None
+    user.save()
+    return '', 204
+
 @app.route('/Calls', methods=['GET'])
 def get_calls():
     return Call.objects().to_json()
@@ -190,6 +222,12 @@ def post_category():
         return '', 400 #already exists
     created.save()
     return '', 201
+
+@app.route('/User/Call/<string:email>', methods=['GET'])
+def get_call_for_user(email):
+    user = User.objects.with_id(email)
+    Call.objects(mission=user.mission, active=True)
+    return '', 200
 
 @app.route('/Categories/<string:name>', methods=['DELETE'])
 def delete_category(name):
