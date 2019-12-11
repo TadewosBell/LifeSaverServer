@@ -226,8 +226,10 @@ def post_category():
 @app.route('/Users/Calls/<string:email>', methods=['GET'])
 def get_call_for_user(email):
     user = User.objects.with_id(email)
-    result = Call.objects.get(mission=user.mission, active=True)
-    return result, 200
+    result = Call.objects(mission=user.mission.id, active=True).first()
+    if not result:
+        return '', 404
+    return result.to_json(), 200
 
 @app.route('/Categories/<string:name>', methods=['DELETE'])
 def delete_category(name):
