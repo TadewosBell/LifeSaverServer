@@ -236,15 +236,15 @@ def delete_category(name):
     Category.objects(name=name).get().delete()
     return '', 204
 
-@app.route('/User', methods=['GET'])
-def get_user():
+@app.route('/Users', methods=['GET'])
+def get_users():
     return User.objects().to_json()
 
-@app.route('/User/<string:email>', methods=['POST'])
+@app.route('/Users/<string:email>', methods=['POST'])
 def post_user(email):
     return User.objects(email=email).get().to_json()
 
-@app.route('/User/<string:email>', methods=['EDIT'])
+@app.route('/Users/<string:email>', methods=['EDIT'])
 def edit_user(email):
     content = request.get_json()
     ChangedUser = User().from_json(content)
@@ -253,7 +253,7 @@ def edit_user(email):
     EditUser.save()
     return '', 201
 
-@app.route('/User/<string:name>', methods=['DELETE'])
+@app.route('/Users/<string:name>', methods=['DELETE'])
 def delete_User(email):
     User.objects(email=email).get().delete()
     return '', 204
